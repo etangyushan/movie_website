@@ -35,8 +35,10 @@ ratatouille = media.Movie("ratatouille",
                           "https://www.youtube.com/watch?v=c3sBBRxDAqk")
 
 movies = [toy_story, avatar, inside_out, midnight_in_paris, school_of_rock, ratatouille]
-#fresh_tomatoes.open_movies_page(movies)
+
 #print (media.Movie.VALID_RATINGS)
 #print (media.Movie.__doc__)
-print (media.Movie.__name__)
-print (media.Movie.__module__)
+#print (media.Movie.__name__)
+#print (media.Movie.__module__)
+
+fresh_tomatoes.open_movies_page(movies)

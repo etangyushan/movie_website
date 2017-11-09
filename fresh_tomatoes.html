@@ -1,11 +1,4 @@
-# -*- coding: utf8 -*-
-import webbrowser
-import os
-import re
 
-
-# Styles and scripting for the page
-main_page_head = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,11 +83,7 @@ main_page_head = '''
 
     </script>
 </head>
-'''
 
-
-# The main page layout and title bar
-main_page_content = '''
   <body>
     <button  id="but1" onclick="do_storyline(this)">显示简介</button>
     <!-- Trailer Video Modal -->
@@ -121,58 +110,44 @@ main_page_content = '''
       </div>
     </div>
     <div class="container">
-      {movie_tiles}
+      
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="KYz2wyBy3kc" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/1/13/Toy_Story.jpg" width="220" height="342">
+    <h2>玩具总动员</h2>
+    <h3>一个男孩的玩具之间的故事</h3>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="uZNHIU3uHT4" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/b/b0/Avatar-Teaser-Poster.jpg" width="220" height="342">
+    <h2>阿凡达</h2>
+    <h3>潘多拉星球上面人类和阿凡达的对抗</h3>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="yRUAzGQ3nSY" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/0/0a/Inside_Out_%282015_film%29_poster.jpg" width="220" height="342">
+    <h2>头脑特工队</h2>
+    <h3>脑子里的各种情绪小人的外出冒险</h3>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="BYRWfS2s2v4" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Midnight_in_Paris_Poster.jpg" width="220" height="342">
+    <h2>午夜巴黎</h2>
+    <h3>孤独的夜晚孤独的人，独自游览巴黎</h3>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="3PsUJFEBC74" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/1/11/School_of_Rock_Poster.jpg" width="220" height="342">
+    <h2>摇滚学校</h2>
+    <h3>一个摇滚青年和他的学生乐队</h3>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="c3sBBRxDAqk" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/5/50/RatatouillePoster.jpg" width="220" height="342">
+    <h2>美食总动员</h2>
+    <h3>一个倒霉厨师和他的老鼠老师</h3>
+</div>
+
     </div>
 
   </body>
 </html>
-'''
-
-
-# A single movie entry html template
-movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
-    <h3>{movie_storyline}</h3>
-</div>
-'''
-
-
-def create_movie_tiles_content(movies):
-    # The HTML content for this section of the page
-    content = ''
-    for movie in movies:
-        # Extract the youtube ID from the url
-        youtube_id_match = re.search(
-            r'(?<=v=)[^&#]+', movie.trailer_youtube_url)
-        youtube_id_match = youtube_id_match or re.search(
-            r'(?<=be/)[^&#]+', movie.trailer_youtube_url)
-        trailer_youtube_id = (youtube_id_match.group(0) if youtube_id_match
-                              else None)
-
-        # Append the tile for the movie with its content filled in
-        content += movie_tile_content.format(
-            movie_title=movie.title,
-            movie_storyline=movie.storyline,
-            poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
-        )
-    return content
-
-
-def open_movies_page(movies):
-    # Create or overwrite the output file
-    output_file = open('fresh_tomatoes.html', 'w')
-
-    # Replace the movie tiles placeholder generated content
-    rendered_content = main_page_content.format(
-        movie_tiles=create_movie_tiles_content(movies))
-
-    # Output the file
-    output_file.write(main_page_head + rendered_content)
-    output_file.close()
-
-    # open the output file in the browser (in a new tab, if possible)
-    url = os.path.abspath(output_file.name)
-    webbrowser.open('file://' + url, new=2)

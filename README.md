@@ -5,11 +5,12 @@
 python entertainment_center.py
 
 #3.文件说明
-#启动实例
+
+启动实例
 entertainment_center.py
 
-#Movie类定义文件
+Movie类定义文件
 media.py
 
-#网页生成库
+网页生成库
 fresh_tomatoes.py
